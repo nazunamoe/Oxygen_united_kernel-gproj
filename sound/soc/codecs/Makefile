@@ -219,7 +219,7 @@ obj-$(CONFIG_SND_SOC_MSM_STUB)  += snd-soc-msm-stub.o
 obj-$(CONFIG_SND_SOC_MAX9877)	+= snd-soc-max9877.o
 obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
 obj-$(CONFIG_SND_SOC_TPA2028D)	+= tpa2028d.o
-# LGE_BSP_AUDIO, jeremy.pi@lge.com, 2012-11-17, Audience es325 ALSA SoC Audio driver
-ifeq ($(CONFIG_SND_SOC_ES325_SLIM),y)
-obj-$(CONFIG_SND_SOC_ES325_SLIM) += es325.o
-endif
+
+# Hack
+obj-$(CONFIG_SOUND_CONTROL_HAX_GPL) += sound_control_gpl.o
+>>>>>>> 04c5552... Sound Control: Sound control for WCD93xx codec

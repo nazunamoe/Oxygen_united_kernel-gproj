@@ -224,6 +224,7 @@ obj-$(CONFIG_SND_SOC_TPA2028D)	+= tpa2028d.o
 obj-$(CONFIG_SOUND_CONTROL_HAX_GPL) += sound_control_gpl.o
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 04c5552... Sound Control: Sound control for WCD93xx codec
 =======
 obj-$(CONFIG_SOUND_CONTROL_HAX_3_GPL) += sound_control_3_gpl.o
@@ -231,3 +232,7 @@ obj-$(CONFIG_SOUND_CONTROL_HAX_3_GPL) += sound_control_3_gpl.o
 >>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
 =======
 >>>>>>> parent of 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
+=======
+obj-$(CONFIG_SOUND_CONTROL_HAX_3_GPL) += sound_control_3_gpl.o
+
+>>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec

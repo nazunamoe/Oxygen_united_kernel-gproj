@@ -24,6 +24,7 @@
 #define SOUND_CONTROL_MAJOR_VERSION	3
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define SOUND_CONTROL_MINOR_VERSION	2
 
 #define REG_SZ	21
@@ -33,6 +34,9 @@
 =======
 #define SOUND_CONTROL_MINOR_VERSION	0
 >>>>>>> parent of 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
+=======
+#define SOUND_CONTROL_MINOR_VERSION	0
+>>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
 
 extern struct snd_soc_codec *fauxsound_codec_ptr;
 
@@ -40,6 +44,7 @@ unsigned int tabla_read(struct snd_soc_codec *codec, unsigned int reg);
 int tabla_write(struct snd_soc_codec *codec, unsigned int reg,
 		unsigned int value);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -179,6 +184,8 @@ EXPORT_SYMBOL(reg_access);
 
 =======
 >>>>>>> parent of 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
+=======
+>>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
 static bool calc_checksum(unsigned int a, unsigned int b, unsigned int c)
 {
 	unsigned char chksum = 0;
@@ -328,8 +335,12 @@ static ssize_t headphone_pa_gain_store(struct kobject *kobj,
 	return count;
 }
 
+<<<<<<< HEAD
 static ssize_t sound_control_version_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
+=======
+static ssize_t sound_control_version_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+>>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
 {
 	return sprintf(buf, "version: %u.%u\n",
 			SOUND_CONTROL_MAJOR_VERSION,

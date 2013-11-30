@@ -26,6 +26,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define SOUND_CONTROL_MINOR_VERSION	2
 
 #define REG_SZ	21
@@ -41,13 +42,19 @@
 =======
 #define SOUND_CONTROL_MINOR_VERSION	0
 >>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
+=======
+#define SOUND_CONTROL_MINOR_VERSION	1
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 
 extern struct snd_soc_codec *fauxsound_codec_ptr;
+
+static int snd_ctrl_locked = 0;
 
 unsigned int tabla_read(struct snd_soc_codec *codec, unsigned int reg);
 int tabla_write(struct snd_soc_codec *codec, unsigned int reg,
 		unsigned int value);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -145,15 +152,21 @@ int snd_hax_reg_access(unsigned int reg)
 =======
 int reg_access(unsigned int reg)
 >>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
+=======
+int reg_access(unsigned int reg)
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 {
 	int ret = 1;
 
 	switch (reg) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		case TABLA_A_RX_HPH_L_GAIN:
 		case TABLA_A_RX_HPH_R_GAIN:
 		case TABLA_A_RX_HPH_L_STATUS:
 		case TABLA_A_RX_HPH_R_STATUS:
+=======
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 =======
 >>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 		case TABLA_A_CDC_RX1_VOL_CTL_B2_CTL:
@@ -182,6 +195,7 @@ int reg_access(unsigned int reg)
 	return ret;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 EXPORT_SYMBOL(snd_hax_reg_access);
 =======
 EXPORT_SYMBOL(reg_access);
@@ -193,6 +207,10 @@ EXPORT_SYMBOL(reg_access);
 >>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
 =======
 >>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
+=======
+EXPORT_SYMBOL(reg_access);
+
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 static bool calc_checksum(unsigned int a, unsigned int b, unsigned int c)
 {
 	unsigned char chksum = 0;
@@ -209,7 +227,7 @@ static bool calc_checksum(unsigned int a, unsigned int b, unsigned int c)
 static ssize_t cam_mic_gain_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
 {
-        return sprintf(buf, "%u",
+        return sprintf(buf, "%u\n",
 		tabla_read(fauxsound_codec_ptr,
 			TABLA_A_CDC_TX6_VOL_CTL_GAIN));
 
@@ -232,7 +250,7 @@ static ssize_t cam_mic_gain_store(struct kobject *kobj,
 static ssize_t mic_gain_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
 {
-	return sprintf(buf, "%u",
+	return sprintf(buf, "%u\n",
 		tabla_read(fauxsound_codec_ptr,
 			TABLA_A_CDC_TX4_VOL_CTL_GAIN));
 }
@@ -255,7 +273,7 @@ static ssize_t mic_gain_store(struct kobject *kobj,
 static ssize_t speaker_gain_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
 {
-        return sprintf(buf, "%u %u",
+        return sprintf(buf, "%u %u\n",
 			tabla_read(fauxsound_codec_ptr,
 				TABLA_A_CDC_RX3_VOL_CTL_B2_CTL),
 			tabla_read(fauxsound_codec_ptr,
@@ -282,7 +300,7 @@ static ssize_t speaker_gain_store(struct kobject *kobj,
 static ssize_t headphone_gain_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
 {
-	return sprintf(buf, "%u %u",
+	return sprintf(buf, "%u %u\n",
 			tabla_read(fauxsound_codec_ptr,
 				TABLA_A_CDC_RX1_VOL_CTL_B2_CTL),
 			tabla_read(fauxsound_codec_ptr,
@@ -308,7 +326,7 @@ static ssize_t headphone_gain_store(struct kobject *kobj,
 static ssize_t headphone_pa_gain_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
 {
-	return sprintf(buf, "%u %u",
+	return sprintf(buf, "%u %u\n",
 		tabla_read(fauxsound_codec_ptr, TABLA_A_RX_HPH_L_GAIN),
 		tabla_read(fauxsound_codec_ptr, TABLA_A_RX_HPH_R_GAIN));
 }
@@ -358,6 +376,26 @@ static ssize_t sound_control_version_show(struct kobject *kobj, struct kobj_attr
 			SOUND_CONTROL_MINOR_VERSION);
 }
 
+static ssize_t sound_control_locked_store(struct kobject *kobj,
+                struct kobj_attribute *attr, const char *buf, size_t count)
+{
+	int inp;
+
+	sscanf(buf, "%d", &inp);
+
+	if (inp == 0)
+		snd_ctrl_locked = 0;
+	else
+		snd_ctrl_locked = 1;
+
+	return count;
+}
+
+static ssize_t sound_control_locked_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+{
+        return sprintf(buf, "%d\n", snd_ctrl_locked);
+}
+
 static struct kobj_attribute cam_mic_gain_attribute =
 	__ATTR(gpl_cam_mic_gain,
 		0666,
@@ -388,6 +426,12 @@ static struct kobj_attribute headphone_pa_gain_attribute =
 		headphone_pa_gain_show,
 		headphone_pa_gain_store);
 
+static struct kobj_attribute sound_control_locked_attribute =
+	__ATTR(gpl_sound_control_locked,
+		0666,
+		sound_control_locked_show,
+		sound_control_locked_store);
+
 static struct kobj_attribute sound_control_version_attribute =
 	__ATTR(gpl_sound_control_version,
 		0444,
@@ -400,6 +444,7 @@ static struct attribute *sound_control_attrs[] =
 		&speaker_gain_attribute.attr,
 		&headphone_gain_attribute.attr,
 		&headphone_pa_gain_attribute.attr,
+		&sound_control_locked_attribute.attr,
 		&sound_control_version_attribute.attr,
 		NULL,
 	};

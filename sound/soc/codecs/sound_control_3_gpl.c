@@ -22,9 +22,13 @@
 #include <linux/mfd/wcd9xxx/wcd9310_registers.h>
 
 #define SOUND_CONTROL_MAJOR_VERSION	3
+<<<<<<< HEAD
 #define SOUND_CONTROL_MINOR_VERSION	2
 
 #define REG_SZ	21
+=======
+#define SOUND_CONTROL_MINOR_VERSION	1
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 
 extern struct snd_soc_codec *fauxsound_codec_ptr;
 
@@ -34,6 +38,7 @@ unsigned int tabla_read(struct snd_soc_codec *codec, unsigned int reg);
 int tabla_write(struct snd_soc_codec *codec, unsigned int reg,
 		unsigned int value);
 
+<<<<<<< HEAD
 
 static unsigned int cached_regs[] = {6, 6, 0, 0, 0, 0, 0, 0, 0, 0,
 			    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -124,14 +129,20 @@ unsigned int snd_hax_cache_read(unsigned int reg)
 EXPORT_SYMBOL(snd_hax_cache_read);
 
 int snd_hax_reg_access(unsigned int reg)
+=======
+int reg_access(unsigned int reg)
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 {
 	int ret = 1;
 
 	switch (reg) {
+<<<<<<< HEAD
 		case TABLA_A_RX_HPH_L_GAIN:
 		case TABLA_A_RX_HPH_R_GAIN:
 		case TABLA_A_RX_HPH_L_STATUS:
 		case TABLA_A_RX_HPH_R_STATUS:
+=======
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 		case TABLA_A_CDC_RX1_VOL_CTL_B2_CTL:
 		case TABLA_A_CDC_RX2_VOL_CTL_B2_CTL:
 		case TABLA_A_CDC_RX3_VOL_CTL_B2_CTL:
@@ -157,7 +168,11 @@ int snd_hax_reg_access(unsigned int reg)
 	}
 	return ret;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(snd_hax_reg_access);
+=======
+EXPORT_SYMBOL(reg_access);
+>>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
 
 static bool calc_checksum(unsigned int a, unsigned int b, unsigned int c)
 {

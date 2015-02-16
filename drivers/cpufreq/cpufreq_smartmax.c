@@ -52,10 +52,6 @@ extern int tegra_input_boost (struct cpufreq_policy *policy,
 		       unsigned int relation);
 #endif
 
-// Use sampling_rate_screen_off when screen off - by jollaman999 & gu5t3r
-bool smartmax_screen_off = false;
-EXPORT_SYMBOL(smartmax_screen_off);
-
 /******************** Tunable parameters: ********************/
 
 /*
@@ -65,18 +61,18 @@ EXPORT_SYMBOL(smartmax_screen_off);
  */
 
 #define DEFAULT_SUSPEND_IDEAL_FREQ 384000
-#define DEFAULT_AWAKE_IDEAL_FREQ 486000
-#define DEFAULT_RAMP_UP_STEP 8000
-#define DEFAULT_RAMP_DOWN_STEP 10000
-#define DEFAULT_MAX_CPU_LOAD 85
+#define DEFAULT_AWAKE_IDEAL_FREQ 594000
+#define DEFAULT_RAMP_UP_STEP 108000
+#define DEFAULT_RAMP_DOWN_STEP 216000
+#define DEFAULT_MAX_CPU_LOAD 90
 #define DEFAULT_MIN_CPU_LOAD 35
 #define DEFAULT_UP_RATE 30000
 #define DEFAULT_DOWN_RATE 80000
 #define DEFAULT_SAMPLING_RATE 70000
 #define DEFAULT_SAMPLING_RATE_SCREEN_OFF 200000 // Use sampling_rate_screen_off when screen off - by jollaman999 & gu5t3r
 #define DEFAULT_INPUT_BOOST_DURATION 90000
-#define DEFAULT_TOUCH_POKE_FREQ 702000
-#define DEFAULT_BOOST_FREQ 918000
+#define DEFAULT_TOUCH_POKE_FREQ 918000
+#define DEFAULT_BOOST_FREQ 1026000
 #define DEFAULT_IO_IS_BUSY 0
 #define DEFAULT_IGNORE_NICE 1
 
@@ -338,11 +334,14 @@ inline static unsigned int validate_freq(struct cpufreq_policy *policy,
 
 /* We want all CPUs to do sampling nearly on same jiffy */
 static inline unsigned int get_timer_delay(void) {
-	unsigned int delay = usecs_to_jiffies(sampling_rate);
+	// Use sampling_rate_screen_off when screen off - by jollaman999 & gu5t3r
+	unsigned int delay;
 
 	// Use sampling_rate_screen_off when screen off - by jollaman999 & gu5t3r
-	if(smartmax_screen_off)
+	if(is_suspended)
 		delay = usecs_to_jiffies(sampling_rate_screen_off);
+	else
+		delay = usecs_to_jiffies(sampling_rate);
 
 	if (num_online_cpus() > 1)
 		delay -= jiffies % delay;
@@ -1334,7 +1333,7 @@ static int cpufreq_governor_smartmax(struct cpufreq_policy *new_policy,
 			/* Bring kernel and HW constraints together */
 			min_sampling_rate = max(min_sampling_rate, MIN_LATENCY_MULTIPLIER * latency);
 			// Use sampling_rate_screen_off when screen off - by jollaman999 & gu5t3r
-			if(smartmax_screen_off)
+			if(is_suspended)
 				sampling_rate_screen_off = max(min_sampling_rate, sampling_rate_screen_off);
 			else
 				sampling_rate = max(min_sampling_rate, sampling_rate);

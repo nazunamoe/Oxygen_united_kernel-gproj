@@ -7033,7 +7033,6 @@ match2:
 }
 
 
-static int num_cpus_frozen;	/* used to mark begin/end of suspend/resume */
 
 
 /*

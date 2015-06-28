@@ -88,6 +88,5 @@ GTAGS
 
 *.rej
 *.orig
-zImage
 *~
 \#*#

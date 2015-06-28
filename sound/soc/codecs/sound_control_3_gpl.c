@@ -24,6 +24,15 @@
 #define SOUND_CONTROL_MAJOR_VERSION	3
 #define SOUND_CONTROL_MINOR_VERSION	2
 
+
+extern struct snd_soc_codec *fauxsound_codec_ptr;
+
+static int snd_ctrl_locked = 0;
+
+unsigned int tabla_read(struct snd_soc_codec *codec, unsigned int reg);
+int tabla_write(struct snd_soc_codec *codec, unsigned int reg,
+		unsigned int value);
+
 static unsigned int cached_regs[] = {6, 6, 0, 0, 0, 0, 0, 0, 0, 0,
 			    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			    0 };

@@ -22,43 +22,7 @@
 #include <linux/mfd/wcd9xxx/wcd9310_registers.h>
 
 #define SOUND_CONTROL_MAJOR_VERSION	3
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 #define SOUND_CONTROL_MINOR_VERSION	2
-
-#define REG_SZ	21
-=======
-#define SOUND_CONTROL_MINOR_VERSION	1
->>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
-=======
-#define SOUND_CONTROL_MINOR_VERSION	0
->>>>>>> parent of 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
-=======
-#define SOUND_CONTROL_MINOR_VERSION	0
->>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
-=======
-#define SOUND_CONTROL_MINOR_VERSION	0
->>>>>>> 6aac587... sound control 3.x: Initial GPL release for WCD9310 Audio Codec
-=======
-#define SOUND_CONTROL_MINOR_VERSION	1
->>>>>>> 6388ae9... Sound Control: (Optional) work around for WCD93xx audio issues
-
-extern struct snd_soc_codec *fauxsound_codec_ptr;
-
-static int snd_ctrl_locked = 0;
-
-unsigned int tabla_read(struct snd_soc_codec *codec, unsigned int reg);
-int tabla_write(struct snd_soc_codec *codec, unsigned int reg,
-		unsigned int value);
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 static unsigned int cached_regs[] = {6, 6, 0, 0, 0, 0, 0, 0, 0, 0,
 			    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

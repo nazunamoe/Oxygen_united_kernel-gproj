@@ -63,6 +63,8 @@ config DEVFREQ_GOV_USERSPACE
 	  Otherwise, the governor does not change the frequnecy
 	  given at the initialization.
 
+<<<<<<< HEAD
+=======
 config DEVFREQ_GOV_MSM_ADRENO_TZ
 	tristate "MSM Adreno Trustzone"
 	depends on MSM_KGSL && MSM_SCM
@@ -98,6 +100,9 @@ config DEVFREQ_GOV_MSM_CPUBW_HWMON
 	  Since this governor uses some of the PM counters it can conflict
 	  with existing profiling tools.  This governor is unlikely to be
 	  useful for other devices.
+
+>>>>>>> 28c79e6... Introduce Adreno idler for devfreq-based Adreno devices
+comment "DEVFREQ Drivers"
 
 config ARM_EXYNOS4_BUS_DEVFREQ
 	bool "ARM Exynos4210/4212/4412 Memory Bus DEVFREQ Driver"
